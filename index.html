@@ -1,0 +1,32 @@
+function playSound() {
+    const s = document.getElementById("clickSound");
+    s.currentTime = 0;
+    s.play();
+}
+
+function spawnParticles(x, y) {
+    for (let i = 0; i < 12; i++) {
+        const p = document.createElement("div");
+        p.classList.add("particle");
+        document.body.appendChild(p);
+
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 40 + Math.random() * 40;
+
+        const tx = Math.cos(angle) * distance;
+        const ty = Math.sin(angle) * distance;
+
+        p.style.left = x + "px";
+        p.style.top = y + "px";
+
+        p.animate([
+            { transform: "translate(0,0)", opacity: 1 },
+            { transform: `translate(${tx}px, ${ty}px)`, opacity: 0 }
+        ], {
+            duration: 600,
+            easing: "ease-out"
+        });
+
+        setTimeout(() => p.remove(), 600);
+    }
+}
